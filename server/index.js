@@ -16,7 +16,8 @@ connectDB.connect();
 // Router(app);
 app.use("/api", routers);
 app.get("/", (req, res) => {
-  res.send("api working");
+  res.setHeader("Content-Type", "application/json");
+  res.status(200).send({ author: "Hao" });
 });
 const port = process.env.PORT || 3000;
 app.listen(port, function (err) {
