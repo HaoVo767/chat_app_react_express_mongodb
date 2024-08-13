@@ -81,21 +81,25 @@ const updateConfigUser = async (req, res) => {
 
 const updateChat = async (req, res) => {
   // const res = await messageModel.find({_id})
-  const chats = await chatModel.find();
+  try {
+    const chats = await chatModel.find();
 
-  chats.map(async (chatRoom) => {
-    await chatModel.findOneAndUpdate(
-      { _id: chatRoom._id },
-      {
-        config: [
-          { userId: chatRoom.members[0], isRead: true, unReadMessageCount: 0 },
-          { userId: chatRoom.members[1], isRead: true, unReadMessageCount: 0 },
-        ],
-      }
-    );
-  });
-  // const response = await chatModel.updateMany({}, { config: [] });
-  // const response = await chatModel.find();
-  res.status(200).send(chats);
+    chats.map(async (chatRoom) => {
+      await chatModel.findOneAndUpdate(
+        { _id: chatRoom._id },
+        {
+          config: [
+            { userId: chatRoom.members[0], isRead: true, unReadMessageCount: 0 },
+            { userId: chatRoom.members[1], isRead: true, unReadMessageCount: 0 },
+          ],
+        }
+      );
+    });
+    // const response = await chatModel.updateMany({}, { config: [] });
+    // const response = await chatModel.find();
+    res.status(200).send(chats);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };
 module.exports = { createChat, findUserChats, findChat, updateChat, updateConfigUser };
