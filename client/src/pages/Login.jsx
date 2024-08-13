@@ -13,14 +13,18 @@ function Login() {
   const { onChangeUser } = useContext(AuthContext);
 
   const handleLogin = async () => {
-    const data = await postRequest("/login", JSON.stringify(loginUser));
-    if (!data.error) {
-      sessionStorage.setItem("user", JSON.stringify(data));
-      onChangeUser({ ...data });
-      navigate("/chat");
-    } else {
-      setLoginError(data.error);
-      setLoginMessage(data.message);
+    try {
+      const data = await postRequest("/login", JSON.stringify(loginUser));
+      if (!data.error) {
+        sessionStorage.setItem("user", JSON.stringify(data));
+        onChangeUser({ ...data });
+        navigate("/chat");
+      } else {
+        setLoginError(data.error);
+        setLoginMessage(data.message);
+      }
+    } catch (e) {
+      console.log("error", e);
     }
   };
   const handleTryLogin = () => {
