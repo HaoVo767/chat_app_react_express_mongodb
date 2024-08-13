@@ -25,3 +25,5 @@ app.listen(port, function (err) {
   }
   console.log("app listening on port " + port);
 });
+
+module.exports = app;
