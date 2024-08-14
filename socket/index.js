@@ -1,5 +1,5 @@
 const { Server } = require("socket.io");
-const io = new Server({ cors: { origin: "http://localhost:5173" } });
+const io = new Server();
 const onlineUsers = [];
 
 io.on("connection", (socket) => {
