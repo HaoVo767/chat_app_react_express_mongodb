@@ -2,26 +2,26 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./database");
-const { createServer } = require("http");
-const { Server } = require("socket.io");
-
 const routers = require("./Routes");
 
-dotenv.config();
 const app = express();
-const httpServer = createServer(app);
-const io = new Server(httpServer, {
+const server = require("http").Server(app, {
+  origin: "https://chat-app-react-express-mongodb.vercel.app",
+});
+const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://chat-app-react-express-mongodb.vercel.app",
   },
 });
+
+dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 connectDB.connect();
-// Router(app);
+
 app.use("/api", routers);
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -72,12 +72,26 @@ io.on("connection", (socket) => {
   });
 });
 
+let serverStarted = false;
+
+function shutdownServer() {
+  if (serverStarted) {
+    httpServer.close(() => {
+      console.log("Server closed");
+      serverStarted = false;
+    });
+  }
+}
+
 const port = process.env.PORT || 3000;
-httpServer.listen(port, function (err) {
+server.listen(port, function (err) {
   if (err) {
     console.log("server error: " + err);
   }
   console.log("app listening on port " + port);
+  serverStarted = true;
 });
 
-module.exports = httpServer;
+process.on("SIGINT", shutdownServer);
+
+// module.exports = server;
