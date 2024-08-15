@@ -1,4 +1,5 @@
-export const baseUrl = "https://server-virid-omega-99.vercel.app/api";
+// export const baseUrl = "https://server-virid-omega-99.vercel.app/api";
+export const baseUrl = "http://localhost:5000/api";
 
 export const postRequest = async (url, body) => {
   const response = await fetch(`${baseUrl}` + url, {

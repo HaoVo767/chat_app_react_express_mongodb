@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect, useCallback, useLayoutEffect } from "react";
 import { getRequest, postRequest } from "../utils/service";
-import { io } from "socket.io-client";
 
-import { socket } from "../utils/connectSocket";
+import { socket } from "../utils/connectSocket.js";
+
 export const ChatContext = createContext();
 
 export const ChatContextProvider = ({ children, user }) => {
