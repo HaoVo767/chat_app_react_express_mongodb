@@ -6,11 +6,11 @@ const routers = require("./Routes");
 
 const app = express();
 const server = require("http").Server(app, {
-  origin: "https://chat-app-react-express-mongodb.vercel.app",
+  origin: "https://chat-app-react-express-mongodb-git-master-haovo767s-projects.vercel.app/",
 });
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://chat-app-react-express-mongodb.vercel.app",
+    origin: "https://chat-app-react-express-mongodb-git-master-haovo767s-projects.vercel.app/",
   },
 });
 
