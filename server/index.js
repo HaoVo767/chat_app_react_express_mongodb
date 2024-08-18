@@ -10,9 +10,9 @@ const server = require("http").Server(app, {
   // origin: 'https://chat-app-react-express-mongodb.vercel.app'
 });
 const io = require("socket.io")(server, {
-  // cors: {
-  // origin: "https://chat-app-react-express-mongodb-git-master-haovo767s-projects.vercel.app/",
-  // },
+  cors: {
+    origin: "https://chat-app-react-express-mongodb-git-master-haovo767s-projects.vercel.app/",
+  },
 });
 
 dotenv.config();
