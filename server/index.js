@@ -27,7 +27,7 @@ connectDB.connect();
 app.use("/api", routers);
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "application/json");
-  res.status(200).send({ author: "Haooooooooooo" });
+  res.status(200).send({ author: "Hao" });
 });
 
 const onlineUsers = [];
@@ -74,26 +74,12 @@ io.on("connection", (socket) => {
   });
 });
 
-let serverStarted = false;
-
-function shutdownServer() {
-  if (serverStarted) {
-    httpServer.close(() => {
-      console.log("Server closed");
-      serverStarted = false;
-    });
-  }
-}
-
 const port = process.env.PORT || 3000;
 server.listen(port, function (err) {
   if (err) {
     console.log("server error: " + err);
   }
   console.log("app listening on port " + port);
-  serverStarted = true;
 });
-
-process.on("SIGINT", shutdownServer);
 
 // module.exports = server;
