@@ -1,4 +1,4 @@
-export const baseUrl = "https://server-n1m95zwqe-haovo767s-projects.vercel.app/api";
+export const baseUrl = "https://server-kappa-self.vercel.app/api";
 
 export const postRequest = async (url, body) => {
   const response = await fetch(`${baseUrl}` + url, {
