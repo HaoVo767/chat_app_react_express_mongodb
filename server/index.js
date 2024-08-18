@@ -5,21 +5,22 @@ const connectDB = require("./database");
 const routers = require("./Routes");
 
 const app = express();
-const server = require("http").Server(app, {
-  // origin: "https://chat-app-react-express-mongodb-git-master-haovo767s-projects.vercel.app/",
-  // origin: 'https://chat-app-react-express-mongodb.vercel.app'
-});
+
+const corsOptions = {
+  origin: ["https://chat-app-react-express-mongodb.vercel.app"],
+  credentials: true,
+};
+
+const server = require("http").Server(app, {});
 const io = require("socket.io")(server, {
-  cors: {
-    origin: "https://chat-app-react-express-mongodb-git-master-haovo767s-projects.vercel.app/",
-  },
+  cors: corsOptions,
 });
 
 dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
 
 connectDB.connect();
 
