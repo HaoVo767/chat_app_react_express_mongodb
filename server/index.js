@@ -7,7 +7,7 @@ const routers = require("./Routes");
 const app = express();
 
 const corsOptions = {
-  origin: ["https://chat-app-react-express-mongodb.vercel.app"],
+  origin: ["chat-app-react-express-mongodb-git-master-haovo767s-projects.vercel.app"],
   credentials: true,
 };
 
