@@ -4,17 +4,27 @@ const dotenv = require("dotenv");
 const connectDB = require("./database");
 const routers = require("./Routes");
 
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+
 const app = express();
 
 const corsOptions = {
-  origin: "https://chat-app-react-express-mongodb-git-master-haovo767s-projects.vercel.app/",
+  origin: "*",
   credentials: true,
+  optionsSuccessStatus: 200,
 };
 
-const server = require("http").Server(app, {});
-const io = require("socket.io")(server, {
-  cors: corsOptions,
+const server = require("http").createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
 });
+io.listen(8080);
+
+// const server = require("http").Server(app);
+// const io = require("socket.io")(server);
 
 dotenv.config();
 
